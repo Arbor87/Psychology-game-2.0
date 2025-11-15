@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>philosopy-game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 初始黑幕 -->
+    <div class="black-mask"></div>
+    
+    <!-- 开端文字 -->
+    <div class="start-text"> 
+        <p>站在黑暗中，冰河流淌</p>
+        <p>现在，让掌心的微光，去触碰</p>
+        <p>散落的第一枚碎片</p>
+        <p>—— 启幕</p>
+        <p class="note">(点击任意位置开始游戏)</p>
+    </div>
+    
+    <!-- 冷漠离开选项后续弹窗 -->
+    <div class="quiz-modal" id="envyEndingModal">
+        <div class="quiz-content" id="envyEndingContent">
+            <!-- 文字内容 -->
+            <div class="text-content" id="envyEndingText">
+                冰河暗涌，你一人孤独前行，耳畔边仍然回荡着惊叫声，树鬼摇曳，无数利枝像是要挑断你那傲人的梁骨，你为什么抛下ta:
+            </div>
+            
+            <!-- 选项 -->
+            <div class="quiz-options" id="envyOptions">
+                <div class="quiz-option" id="envyOptionA">A. 认为ta是一个麻烦</div>
+                <div class="quiz-option" id="envyOptionB">B. 妒忌ta的笑容，妒忌ta的勇敢，妒忌ta拥有你渴望的一切</div>
+                <div class="quiz-option" id="envyOptionC">C. 你想逃离</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="envyBackButton">返回前面文字</button>
+        </div>
+    </div>
+    
+    <!--游戏初始界面-->
+    <div class="start-game">
+        <p>控制小人去触碰光点</p>
+        <div class="water-ripple"></div>
+        <div class="target-spot"></div>
+        <div class="ground0"></div>
+        <div class="player"></div>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div class="game-container">
+        <div class="background"></div>
+        <div class="water-ripple"></div>
+        <div class="ground"></div> <!-- 地面 -->
+        <div class="player"></div>
+        
+        <!-- 右上角进度圈 -->
+        <div class="progress-circles">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        
+        <!-- 操控按钮（含跳跃） -->
+        <div class="controls">
+            <button class="btn" id="leftBtn">←</button>
+            <button class="jump-btn" id="jumpBtn">↑</button>
+            <button class="btn" id="rightBtn">→</button>
+        </div>
+    </div>
+
+    <!-- 第一个问答界面 -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-content">
+            <!-- 文字内容界面 -->
+            <div class="text-content" id="textContent">
+                <p>你听见风声，水声，鸟鸣，看见鬼魅般的光影穿梭在枝桠间。</p>
+                <p>微弱的萤火是黑夜的眼睛，握在手心却如河流淌。</p>
+                <p>不要害怕，穿过这片桦树林，你会相信外面是新世界吗？</p>
+            </div>
+            
+            <!-- 选项界面 -->
+            <div class="quiz-options" id="quizOptions">
+                <div class="quiz-option" id="optionA">A. 相信</div>
+                <div class="quiz-option" id="optionB">B. 不相信</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="backButton">返回文字</button>
+        </div>
+    </div>
+    
+    <!-- 第二个问答界面 -->
+    <div class="quiz-modal" id="quizModal2">
+        <div class="quiz-content">
+            <!-- 文字内容界面 -->
+            <div class="text-content" id="textContent2">
+                <p>天色近暗，你停下脚步，坐在裸露的大树根系上，你看见一个人走来，雾岚弥漫，你怎么也看不清TA的面容，TA问你一个人吗？要一起走吗？</p>
+            </div>
+            
+            <!-- 选项界面 -->
+            <div class="quiz-options" id="quizOptions2">
+                <div class="quiz-option" id="optionA2">A. 可以</div>
+                <div class="quiz-option" id="optionB2">B. 不可以</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="backButton2">返回文字</button>
+        </div>
+    </div>
+
+    <!-- 新剧情文字弹窗 -->
+    <div class="quiz-modal" id="newStoryModal">
+        <div class="quiz-content" id="newStoryContent">
+            <div class="text-content" id="newStoryText">
+                TA与你并肩而行，谈笑风生，你攥紧手心，风过发梢，刺肤寒冷如蛀虫侵蚀骨肉，天色将晚，只剩下莎莎的落叶响。突然，一声惊叫让你冷汗直冒--TA没看路，一脚滑进树洞之中。
+            </div>
+        </div>
+    </div>
+    
+    <!-- 新选项弹窗 - 问题和选项整合在同一界面 -->
+    <div class="quiz-modal" id="newOptionsModal">
+        <div class="quiz-content" id="newOptionsContent">
+            <!-- 文字内容 -->
+            <div class="text-content" id="newOptionsText">
+                你站在树洞边缘，向下望去，黑暗中隐约传来呼救声。你决定...
+            </div>
+            
+            <!-- 选项 -->
+            <div class="quiz-options" id="newOptions">
+                <div class="quiz-option" id="newOptionA">A. 集齐荧光拯救TA</div>
+                <div class="quiz-option" id="newOptionB">B. 冷漠离开</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="newBackButton">返回前面文字</button>
+        </div>
+    </div>
+    
+    <!-- 问题3选择A后的新弹窗 -->
+    <div class="quiz-modal" id="question3AModal">
+        <div class="quiz-content" id="question3AContent">
+            <!-- 文字内容 -->
+            <div class="text-content" id="question3AText">
+                TA并无大碍，为了感谢你TA提出一些逃离森林的建议，你看着ta朦胧的脸，想到自己被困森林却无法走出，于是点头，ta却问: 
+                你认为幸福的秘诀是什么？
+            </div>
+              
+            <!-- 选项 -->
+            <div class="quiz-options" id="question3AOptions">
+                <div class="quiz-option" id="question3AOptionA">A. 在朋友间找到归属感</div>
+                <div class="quiz-option" id="question3AOptionB">B. 不要想太多</div>
+                <div class="quiz-option" id="question3AOptionC">C. 珍惜当下</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="question3ABackButton">返回文字</button>
+        </div>
+    </div>
+    
+    <!-- 问题3A后续新弹窗（收集光点后显示） -->
+    <div class="quiz-modal" id="question3AProceedModal">
+        <div class="quiz-content" id="question3AProceedContent">
+            <!-- 文字内容 -->
+            <div class="text-content" id="question3AProceedText">
+                你认为这样的问题莫名其妙，但TA又说"我在寻找我的朋友们，你知道吗？我被困这里数十年，满眼都是郁郁桦树，似乎待在这里也没什么不好，走出去也会有阳光照不见的地方，你要和我一起走吗？"
+                <br><br>
+                你犹豫不决，前进的意义变的模糊，你选择:
+            </div>
+              
+            <!-- 选项 -->
+            <div class="quiz-options" id="question3AProceedOptions">
+                <div class="quiz-option" id="question3AProceedOptionA">A. 拉起ta的手和ta寻找朋友</div>
+                <div class="quiz-option" id="question3AProceedOptionB">B. 你拒绝了ta，决定自己去碰运气</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="question3AProceedBackButton">返回文字</button>
+        </div>
+    </div>
+
+    <!-- 假结局2弹窗 -->
+    <div id="fakeEnding2Modal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="text-content" id="fakeEnding2Text">
+                <p>你暂时决定留在森林里，日复一日，日复一日，你看见ta的背影消失在树影里，像是一场梦，也许你可能下一秒就会找到出口，也或许是明天，也或许是永远都在寻找的道路之上，旧世界与新世界的脉络是如此的坚强而脆弱，但无论在哪里，你都仅仅是你</p>
+                <p style="font-weight: bold; text-align: center; margin-top: 30px;">恭喜你打出假结局2--【旧世界？】</p>
+            </div>
+            <div class="back-button" id="fakeEnding2BackButton">
+                <span>重新开始</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 最终文字界面弹窗 -->
+    <div id="finalTextModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="text-content" id="finalText">
+                <p>森林的黎明似乎触手可及，硕大的枝叶不足以遮挡阳光的直射，你开始好奇ta到底是谁？你想凭借着阳光去看清，但被发现:</p>
+                <p>ta好像在笑，问你:你想知道吗？</p>
+            </div>
+            <div class="quiz-options" id="finalTextOptions">
+                <div class="quiz-option" id="finalTextOptionA">
+                    <span>A.想</span>
+                </div>
+                <div class="quiz-option" id="finalTextOptionB">
+                    <span>B.不想</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- 假结局弹窗 -->
+    <div class="quiz-modal" id="badEndingModal">
+        <div class="quiz-content" id="badEndingContent">
+            <div class="text-content" id="badEndingText">
+                亲爱的，无论是你的高警惕性还是过人的智慧，我都相信你有足够的勇气与能力独自走出森林。<br><br>
+                祝你好运。<br><br>
+                恭喜你打出假结局1--【森林与独骑士】
+            </div>
+            <button class="back-button" id="badEndingBackButton">重新开始</button>
+        </div>
+    </div>
+    
+    <!-- 冷漠离开后续弹窗（冰河暗涌） -->
+    <div class="quiz-modal" id="envyEndingModal2">
+        <div class="quiz-content" id="envyEndingContent2">
+            <!-- 文字内容界面 -->
+            <div class="text-content" id="envyEndingText2">
+                你离开的脚步声在寂静的森林中格外清晰。黑暗里，你听到自己急促的呼吸声，心跳如鼓。<br><br>
+                为什么？为什么你会有这样的感觉？
+            </div>
+            
+            <!-- 选项界面 -->
+            <div class="quiz-options" id="envyOptions2">
+                <div class="quiz-option" id="envyOptionA2">A. 认为ta是一个麻烦</div>
+                <div class="quiz-option" id="envyOptionB2">B. 妒忌ta的笑容，妒忌ta的勇敢，妒忌ta拥有你渴望的一切</div>
+                <div class="quiz-option" id="envyOptionC2">C. 你想逃离</div>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="envyBackButton2">返回文字</button>
+        </div>
+    </div>
+    
+    <!-- 真结局2弹窗 -->
+    <div class="quiz-modal" id="trueEndingModal2">
+        <div class="quiz-content" id="trueEndingContent2">
+            <!-- 文字内容 -->
+            <div class="text-content" id="trueEndingText2">
+                <p>你手中的光芒似乎越来越少，留不住抓不住，选择已成过去式，结果似乎无足轻重，因为在你耳边回响着:</p>
+            </div>
+            
+            <!-- 选项界面 -->
+            <div class="quiz-options" id="trueEndingOptions">
+                <div class="quiz-option" id="trueEndingOptionA">A. 为什么不救我？</div>
+                <div class="quiz-option" id="trueEndingOptionB">B. 为什么不救我？</div>
+                <div class="quiz-option" id="trueEndingOptionC">C. 为什么不救我？</div>
+                
+                <!-- 红字部分 -->
+                <p class="red-text">我永远留在森林，你也是。</p>
+                
+                <!-- 额外内容 -->
+                <p>当你重新向树洞望去-</p>
+                <p>那是你。</p>
+                <p>那是你。</p>
+                <p>那是你。</p>
+                 
+                <!-- 结局标题 -->
+                <p class="ending-title">恭喜你打出真结局2--【为什么，走不出】</p>
+            </div>
+            
+            <!-- 返回按钮 -->
+            <button class="back-button" id="trueEnding2BackButton">重新开始</button>
+        </div>
+    </div>
+
+    <!-- 黑屏元素（用于选项A点击后的效果） -->
+    <div id="blackScreen" class="black-screen">
+        <p class="look-carefully">仔细看一看</p>
+    </div>
+    
+    <!-- 真结局弹窗 -->
+    <div id="trueEndingModal" class="quiz-modal">
+        <div class="quiz-content" id="trueEndingContent">
+            <div class="text-content" id="trueEndingText">
+                <p>当阳光炙干第一滴泪水，当我们终于有勇气去抓住幸福，新世界就徐徐展开在眼前，我们看起来似乎坚不可摧，但又千疮百孔。哪里都是新世界，哪里又都是旧世界，只要我们迈出第一步，就可以抬眼去望一望。</p>
+                <p><br></p>
+                <p>你好，新世界。</p>
+                <p><br></p>
+                <p style="font-weight: bold; text-align: center; margin-top: 30px;">恭喜你打出真结局1--(致新世界)</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="test.js"></script>
+</body>
+</html>
